@@ -107,6 +107,12 @@ do
 		git_author="$author <$author@ecs.soton.ac.uk>"
 	fi
 
+	# SVN allows blank messages because blegh
+	if test -z "$msg"
+	then
+		msg="(Empty Message)"
+	fi
+
 	# For all the files in this revision, download and stage them with git
 	for file in $(sed -n 's/.*view\=markup">\(.*\)<.*/\1/p' $tmp_file)
 	do
