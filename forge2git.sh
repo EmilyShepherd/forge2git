@@ -110,6 +110,18 @@ do
 	# For all the files in this revision, download and stage them with git
 	for file in $(sed -n 's/.*view\=markup">\(.*\)<.*/\1/p' $tmp_file)
 	do
+		# If this has subdirectories, we need to loop through them and
+		# create them if they don't already exist on our local machine
+		path=.
+		for part in $(echo $file | tr "/" "\n" | head -n -1)
+		do
+			path="$path/$part"
+			if ! test -d "$path"
+			then
+				mkdir $path
+			fi
+		done
+
 		curl -kso $file "${BLOB_URL}${file}?rev=$i&root=$proj"
 
 		# For empty files, it seems ECS Forge outputs a header by mistake
