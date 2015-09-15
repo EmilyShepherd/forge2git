@@ -1,4 +1,11 @@
 #!/bin/sh
+#
+# Copyright (c) 2015 Emily Shepherd
+# Free usage, open license etc. No warrenty implied
+#
+# Scrapes ECS Forge project HTML pages and converts them to git
+# repos
+#
 
 # Forge settings
 COMMIT_URL="https://forge.ecs.soton.ac.uk/plugins/scmsvn/viewcvs.php"
