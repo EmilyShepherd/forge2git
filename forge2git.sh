@@ -150,7 +150,20 @@ do
 	percent=$(awk "BEGIN {printf \"%.0f\", $i / $revs * 100}")
 	hashes=$(awk "BEGIN {printf \"%.0f\", $percent / 2}")
 	spaces=$(expr 50 - $hashes)
-	echo -ne "$(printf '#%.0s' {1..${hashes}})$(printf ' %.0s' {1..${spaces}}) (${percent}%)\r"
+
+	echo -n "["
+
+	for (( j=0; j<$hashes; j++ ))
+	do
+		echo -n "#"
+	done
+
+	for (( j=0; j<$spaces; j++ ))
+	do
+		echo -n " "
+	done
+
+	echo -ne "] (${percent}%)\r"
 
 	# Inc
 	i=$(expr $i + 1)
