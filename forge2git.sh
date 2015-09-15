@@ -57,7 +57,7 @@ do
 	i=$(expr $i + 1)
 done
 
-// Tidy Up
+# Tidy Up
 rm $tmp_file
 
 echo -ne "\n"
