@@ -9,11 +9,27 @@
 
 # Forge settings
 COMMIT_URL="https://forge.ecs.soton.ac.uk/plugins/scmsvn/viewcvs.php"
-BLOB_URL="https://forge.ecs.soton.ac.uk/plugins/scmsvn/viewcvs.php/*checkout*/"
+BLOB_URL="${COMMIT_URL}/*checkout*/"
 
 usage()
 {
-	echo "$0 <projname> [--dir|-d <directory>] [--names|-n <name>]"
+	echo "usage: forge2git [-h|--help]"
+	echo "                 <projname> [--dir|-d <directory>] [--names|-n <name>]"
+	echo ""
+	echo "Pass in your ECS Forge project name as your first argument."
+	echo "  EG: forge2git os12-ams2g11"
+	echo ""
+	echo "The author of the git commit defaults to \"ecsid <ecsid@ecs.soton.ac.uk>\". To"
+	echo "override this, provide a names database: a text file with each line in the form:"
+	echo "  ^ecsid Human Readable Name <correct@email.address>$"
+	echo ""
+	echo "Optional Arguments"
+	echo "    --dir -d    The following argument is the name of the directory to create"
+	echo "                and intialise as a git repo. Defaults to the project name."
+	echo ""
+	echo "    --names -n  The following argument is the filename of a names database used"
+	echo "                to convert ECS IDs to git authors."
+
 	exit 1
 }
 
@@ -39,6 +55,11 @@ shut_down()
 
 # We require the first arg
 if test -z "$1"
+then
+	usage
+fi
+
+if test $1 = "--help" || test $1 = "-h"
 then
 	usage
 fi
